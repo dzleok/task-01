@@ -20,7 +20,7 @@ export default [
   {
     rules: {
       'react/react-in-jsx-scope': 'off', // Turn off the default rule
-      ''
+      
     },
   },
   {
