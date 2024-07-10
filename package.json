@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint -fix .",
     "format:fix": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "mocha"
   },
   "dependencies": {
     "react": "^18.3.1",
