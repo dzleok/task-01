@@ -343,7 +343,7 @@ interface StarWarsCharacter {
   created: string;
   edited: string;
   url: string;
-  // planets
+  // planet
   climate: string;
   diameter: string;
   gravity: string;
