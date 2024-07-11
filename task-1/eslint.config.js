@@ -19,11 +19,15 @@ export default [
   pluginReactConfig,
   {
     rules: {
+      'react-compiler/react-compiler': 'error',
+
       'react/react-in-jsx-scope': 'off', // Turn off the default rule
-      
     },
   },
   {
     ignores: ['.prettierrc.js'],
+  },
+  {
+    plugins: ['react-compiler'],
   },
 ];
