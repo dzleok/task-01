@@ -10,10 +10,10 @@ export type StarWarsRequest = {
   next: string | null;
   previous: string | null;
   results: StarWarsCharacter[] | null;
-  selectedType: string | null;
+  // selectedType: string | null;
 };
 
-type StarWarsCharacter = {
+export type StarWarsCharacter = {
   name: string;
   height: string;
   mass: string;
@@ -78,11 +78,10 @@ type StarWarsCharacter = {
 };
 
 export type SearchProps = {
-  query: string;
-  setQuery: (newValue: string) => void;
+  setIsLoading: (n: boolean) => void;
+  setData: (n: StarWarsRequest) => void;
   selectedType: string;
-  setSelectedType: (newType: string) => void;
-  onSearch: () => void;
+  setSelectedType: (n: string) => void;
 };
 
 export type ErrorBoundaryState = {
