@@ -314,105 +314,91 @@
 //   }
 // }
 
-import { Component, ReactNode } from 'react';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
+import Search from './ui/Search';
+import Results from './ui/Results';
+import { ErrorBoundary } from './ui/ErrorBoundary';
+import { ThrowError } from './ui/throwError';
 
-interface StarWarsRequest {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: StarWarsCharacter[] | null;
-  selectedType: string | null;
-}
+import { StarWarsRequest } from './types/types';
 
-interface StarWarsCharacter {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
-  // planet
-  climate: string;
-  diameter: string;
-  gravity: string;
-  orbital_period: string;
-  population: string;
-  residents: string[];
-  rotation_period: string;
-  surface_water: string;
-  terrain: string;
-  // films
-  characters: string[];
-  director: string;
-  episode_id: number;
-  opening_crawl: string;
-  planets: string[];
-  producer: string;
-  release_date: string;
-  title: string;
-  // species
-  average_height: string;
-  average_lifespan: string;
-  classification: string;
-  designation: string;
-  eye_colors: string;
-  hair_colors: string;
-  language: string;
-  people: string[];
-  skin_colors: string;
-  // vehicle
-  cargo_capacity: string;
-  consumables: string;
-  cost_in_credits: string;
-  crew: string;
-  length: string;
-  manufacturer: string;
-  max_atmosphering_speed: string;
-  model: string;
-  passengers: string;
-  pilots: string[];
-  vehicle_class: string;
-  // starships
-  MGLT: string;
-  hyperdrive_rating: string;
-  starship_class: string;
-}
+export default function App(): JSX.Element {
+  const [selectedType, setSelectedType] = useState<string>('people');
+  const [query, setQuery] = useState<string>('');
+  const [isLoading, setIsLoadind] = useState<boolean>(false);
+  const [data, setData] = useState<StarWarsRequest>();
 
-const App: React.FC = () => {
-  const storedValue = localStorage.getItem('data');
-  const localStorageData = storedValue ? JSON.parse(storedValue) : undefined;
+  // const [error, setError] = useState<string>('');
 
-  const [selectedType, setSelectedType] = useState<string>(
-    // localStorageData?.selectedType ||
-    'people',
-  );
-  const [searchValue, setSearchValue] = useState<string>(
-    localStorageData?.searchValue || '',
-  );
-  const [data, setData] = useState<StarWarsRequest | undefined>(
-    localStorageData,
-  );
+  // const storedValue = localStorage.getItem('data');
+  // const localStorageData = storedValue ? JSON.parse(storedValue) : undefined;
+
+  // const [selectedType, setSelectedType] = useState<string>(
+  //   localStorageData?.selectedType || 'people',
+  // );
+
+  // const [searchValue, setSearchValue] = useState<string>(
+  //   localStorageData?.searchValue || '',
+  // );
 
   const handleSearch = async () => {
+    setIsLoadind(true);
     const res = await fetch(
-      `https://swapi.dev/api/${selectedType}/?search=${searchValue}`,
+      `https://swapi.dev/api/${selectedType}/?search=${query}`,
     );
-    console.log('search');
     const newData = await res.json();
     setData(newData);
+    setIsLoadind(false);
   };
+
+  // TOFIX:
+  // useEffect(
+  //   function () {
+  //     const controller = new AbortController();
+
+  //     async function handleSearch() {
+  //       try {
+  //         setIsLoadind(true);
+  //         setError('');
+  //         const res = await fetch(
+  //           `https://swapi.dev/api/${selectedType}/?search=${query}
+  //       `,
+  //           { signal: controller.signal },
+  //         );
+
+  //         if (!res.ok) throw new Error('Smth wrong fetching');
+
+  //         const data = await res.json();
+  //         if (data.Response === 'False') throw new Error('Not found');
+
+  //         setData(data.Search);
+  //         setError('');
+  //         // console.log(data.Search);
+  //       } catch (err) {
+  //         console.error(err.message);
+  //         if (err.name !== 'AbortError') {
+  //           setError(err.message);
+  //         }
+  //       } finally {
+  //         setIsLoadind(false);
+  //       }
+  //     }
+
+  //     // if (query.length < 3) {
+  //     //   setMovies([]);
+  //     //   setError("");
+  //     //  return;
+  //     // }
+  //     //   handleCloseMovie();
+  //     handleSearch();
+
+  //     return function () {
+  //       controller.abort();
+  //     };
+  //   },
+  //   [query],
+  // );
 
   useEffect(() => {
     if (data) {
@@ -420,178 +406,30 @@ const App: React.FC = () => {
     }
   }, [data]);
 
+  function Loader() {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
         <Search
+          query={query}
+          setQuery={setQuery}
           selectedType={selectedType}
           setSelectedType={setSelectedType}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
           onSearch={handleSearch}
         />
-        {data && <Results data={data} />}
+        {isLoading && <Loader />}
+        {data && <Results data={data} selectedType={selectedType} />}
         <ThrowError />
       </ErrorBoundary>
     </>
   );
-};
-
-interface SearchProps {
-  selectedType: string;
-  searchValue: string;
-  setSelectedType: (newType: string) => void;
-  setSearchValue: (newValue: string) => void;
-  onSearch: () => void;
 }
 
-const Search: React.FC<SearchProps> = ({
-  selectedType,
-  searchValue,
-  setSelectedType,
-  setSearchValue,
-  onSearch,
-}) => (
-  <div className="search">
-    <input
-      type="text"
-      placeholder="Search ..."
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
-    />
-    <select
-      value={selectedType}
-      onChange={(e) => setSelectedType(e.target.value)}
-    >
-      <option value="people">people</option>
-      <option value="planets">planets</option>
-      <option value="films">films</option>
-      <option value="species">species</option>
-      <option value="vehicles">vehicles</option>
-      <option value="starships">starships</option>
-    </select>
-    <button onClick={onSearch}>Search</button>
-  </div>
-);
+// const App: React.FC = () => {
 
-interface ResultsProps {
-  data: StarWarsRequest;
-}
-
-const Results: React.FC<ResultsProps> = ({ data }) => (
-  <ul>
-    {data.selectedType === 'people' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.name} has height {el.height}cm, mass {el.mass} kg and{' '}
-          {el.hair_color} hair
-        </li>
-      ))}
-    {data.selectedType === 'planets' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.name} has diameter {el.diameter}km, population {el.population}{' '}
-          people and {el.terrain}
-        </li>
-      ))}
-    {data.selectedType === 'films' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.title} was produced by {el.producer}, director {el.director} and
-          released {el.release_date}
-        </li>
-      ))}
-    {data.selectedType === 'species' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.name} is {el.designation}, average height {el.average_height}cm
-          and language {el.language}
-        </li>
-      ))}
-    {data.selectedType === 'vehicles' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.name} is {el.length}m, has crew {el.crew} person and cost{' '}
-          {el.cost_in_credits} credits
-        </li>
-      ))}
-    {data.selectedType === 'starships' &&
-      data.results?.map((el, i) => (
-        <li key={i}>
-          {el.name} is {el.length}m, has crew {el.crew} person and cost{' '}
-          {el.cost_in_credits} credits
-        </li>
-      ))}
-  </ul>
-);
-
-// interface ErrorBoundaryProps {
-//   children: ReactNode;
-//   fallback: ReactNode;
-// }
-
-// const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children, fallback }) => {
-//   const [hasError, setHasError] = useState(false);
-
-//   useEffect(() => {
-//     const handleError = (error: Error) => {
-//       console.error('An error occurred:', error);
-//       setHasError(true);
-//     };
-//     window.addEventListener('error', handleError);
-//     return () => {
-//       window.removeEventListener('error', handleError);
-//     };
-//   }, []);
-
-//   return hasError ? fallback : children;
 // };
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-}
-
-interface ErrorBoundaryProps {
-  children?: ReactNode;
-  fallback?: ReactNode;
-}
-
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    console.error('An error occurred:', error);
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-    return this.props.children;
-  }
-}
-
-const ThrowError: React.FC = () => {
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    if (hasError) {
-      throw new Error('INDEED Everything went wrong. RELOAD the page!');
-    }
-  }, [hasError]);
-
-  return (
-    <button
-      style={{ backgroundColor: 'red', color: 'white', marginLeft: '100px' }}
-      onClick={() => setHasError(true)}
-    >
-      Throw error
-    </button>
-  );
-};
-
-export default App;
+// export default App;
