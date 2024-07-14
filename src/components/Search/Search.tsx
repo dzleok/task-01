@@ -1,23 +1,16 @@
-import { fetchSearchData } from '../../services/apiStarWars';
-import { SearchProps } from '../../types/types';
-
 import './Search.css';
 import { useQuery } from '../../hooks/useQuery';
+
+import { useNavigate } from 'react-router-dom';
+import { useSelectedType } from '../../hooks/useSelectedType';
 import { useEffect } from 'react';
-export default function Search({
-  setIsLoading,
-  setData,
-  selectedType,
-  setSelectedType,
-}: SearchProps): JSX.Element {
+export default function Search(): JSX.Element {
   const { query, setQuery } = useQuery();
-  const page: number = 1;
+  const navigate = useNavigate();
+  const { selectedType, setSelectedType } = useSelectedType();
 
   async function handleSearch() {
-    setIsLoading(true);
-    const data = await fetchSearchData(selectedType, query, page);
-    setData(data);
-    setIsLoading(false);
+    navigate(`/search/1?q=${query}&s=${selectedType}`, { replace: true });
   }
 
   useEffect(function () {

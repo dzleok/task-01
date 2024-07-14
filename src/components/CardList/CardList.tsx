@@ -1,20 +1,8 @@
 import { useState } from 'react';
-import {
-  ResultsProps,
-  StarWarsCharacter,
-  StarWarsRequest,
-} from '../../types/types';
+import { ResultsProps, StarWarsCharacter } from '../../types/types';
 import './CardList.css';
-import { fetchSearchData } from '../../services/apiStarWars';
-// import { Link } from 'react-router-dom';
 
-export default function CardList({
-  data,
-  setData,
-  // selectedType,
-}: ResultsProps): JSX.Element {
-  const { next, previous }: StarWarsRequest = data;
-
+export default function CardList({ data }: ResultsProps): JSX.Element {
   const [isShowCardDetails, setIsShowCardDetails] = useState<boolean>(false);
   const [character, setCharacter] = useState<StarWarsCharacter>();
 
@@ -32,38 +20,9 @@ export default function CardList({
     setIsShowCardDetails(false);
   }
 
-  async function handleNext(next: number) {
-    data = await fetchSearchData('people', 'a', next);
-    setData(data);
-  }
-
-  async function handlePrevious(previous: number) {
-    data = await fetchSearchData('people', 'a', previous);
-    setData(data);
-  }
-
   return (
     <div className="card-list">
       <div className="card-items">
-        {previous && (
-          <button
-            onClick={() => {
-              handlePrevious(Number(previous?.slice(-1)));
-            }}
-          >
-            {' '}
-            &larr;{' '}
-          </button>
-        )}
-        {next && (
-          <button
-            onClick={() => {
-              handleNext(Number(next?.slice(-1)));
-            }}
-          >
-            &rarr;
-          </button>
-        )}
         {data.results?.map((el, i) => (
           <Card key={i} character={el} showCardDetails={showCardDetails} />
         ))}

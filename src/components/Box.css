@@ -1,0 +1,6 @@
+.box-buttons {
+  position: absolute;
+  left: 250px;
+  display: flex;
+  flex-direction: row;
+}

@@ -11,8 +11,6 @@ export type StarWarsRequest = {
   next: string | null;
   previous: string | null;
   results: StarWarsCharacter[];
-  // selectedType: string | null;
-  // character: StarWarsCharacter;
 };
 
 export type StarWarsCharacter = {
