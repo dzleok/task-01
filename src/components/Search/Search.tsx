@@ -11,10 +11,11 @@ export default function Search({
   setSelectedType,
 }: SearchProps): JSX.Element {
   const { query, setQuery } = useQuery();
+  const page: number = 1;
 
   async function handleSearch() {
     setIsLoading(true);
-    const data = await fetchSearchData(selectedType, query);
+    const data = await fetchSearchData(selectedType, query, page);
     setData(data);
     setIsLoading(false);
   }
@@ -36,13 +37,21 @@ export default function Search({
         onChange={(e) => setSelectedType(e.target.value)}
       >
         <option value="people">people</option>
-        <option value="planets">planets</option>
+        <option value="planets" disabled>
+          planets
+        </option>
         <option value="films" disabled>
           films
         </option>
-        <option value="species">species</option>
-        <option value="vehicles">vehicles</option>
-        <option value="starships">starships</option>
+        <option value="species" disabled>
+          species
+        </option>
+        <option value="vehicles" disabled>
+          vehicles
+        </option>
+        <option value="starships" disabled>
+          starships
+        </option>
       </select>
       <button onClick={handleSearch}>Search</button>
     </div>

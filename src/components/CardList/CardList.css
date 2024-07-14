@@ -1,7 +1,13 @@
 .card-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-items {
   padding: 20px;
   text-align: center;
-  display: flex;
+  position: absolute;
+  left: 200px;
 }
 
 .card {
@@ -24,10 +30,12 @@
 
 .card-details {
   text-align: left;
+  width: 400px;
   padding: 20px;
   background-color: rgba(255, 231, 221, 0.8);
   position: relative;
-  margin-left: 100px;
+  margin: 50px;
+  right: 10%;
   border-radius: 5px;
 }
 

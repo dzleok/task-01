@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 export type ResultsProps = {
   data: StarWarsRequest;
+  setData: (n: StarWarsRequest) => void;
   selectedType: string | null;
 };
 
@@ -11,6 +12,7 @@ export type StarWarsRequest = {
   previous: string | null;
   results: StarWarsCharacter[];
   // selectedType: string | null;
+  // character: StarWarsCharacter;
 };
 
 export type StarWarsCharacter = {
@@ -82,6 +84,8 @@ export type SearchProps = {
   setData: (n: StarWarsRequest) => void;
   selectedType: string;
   setSelectedType: (n: string) => void;
+  // page: number;
+  // setPage: (n: number) => void;
 };
 
 export type ErrorBoundaryState = {
