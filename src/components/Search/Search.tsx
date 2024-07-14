@@ -37,7 +37,9 @@ export default function Search({
       >
         <option value="people">people</option>
         <option value="planets">planets</option>
-        <option value="films">films</option>
+        <option value="films" disabled>
+          films
+        </option>
         <option value="species">species</option>
         <option value="vehicles">vehicles</option>
         <option value="starships">starships</option>

@@ -9,12 +9,12 @@ export type StarWarsRequest = {
   count: number;
   next: string | null;
   previous: string | null;
-  results: StarWarsCharacter[] | null;
+  results: StarWarsCharacter[];
   // selectedType: string | null;
 };
 
 export type StarWarsCharacter = {
-  name: string;
+  name: string | null;
   height: string;
   mass: string;
   hair_color: string;
