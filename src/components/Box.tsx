@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Box.css';
+
 
 import { StarWarsRequest } from '../types/types';
 import CardList from './CardList/CardList';
@@ -27,7 +27,7 @@ export function Box() {
       setIsLoading(false);
     }
     fetchData();
-  }, [id]);
+  }, [id, query, selectedType]);
 
   async function handleNext() {
     if ((data?.count ?? 0) / 10 < page) return;
@@ -55,7 +55,7 @@ export function Box() {
       {isLoading && <Loader />}
       {!isLoading && (
         <div>
-          <div className="box-buttons">
+          <div>
             {data?.previous && (
               <button
                 onClick={() => {
