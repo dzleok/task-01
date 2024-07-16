@@ -15,11 +15,3 @@
 5. Start the application `npm run dev`
 
 6. Start the application in browser by provided link in CLI
-
-## Script commands
-
-1. Start **esLint** to run code analysis and verification for compliance with established rules `npm run lint`
-
-2. Start **Prettier** to automatically format code `npm run format:fix`
-
-3. **Husky** is configured to automatically start **esLint** and **Prettier** during `pre-commit` Git-operations

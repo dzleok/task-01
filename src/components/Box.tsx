@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './Box.css';
 
 import { StarWarsRequest } from '../types/types';
 import CardList from './CardList/CardList';
