@@ -18,7 +18,7 @@ export default function App(): JSX.Element {
           <ThrowError />
 
           <Routes>
-            {<Route path="search/:id" element={<Box></Box>} />}
+            <Route path="search/:id" element={<Box />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </ErrorBoundary>

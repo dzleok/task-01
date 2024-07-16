@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import './Box.css';
 
 import { StarWarsRequest } from '../types/types';
 import CardList from './CardList/CardList';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchSearchData } from '../services/apiStarWars';
 
-export function Box() {
+export function Box(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<StarWarsRequest>();
 
@@ -27,7 +26,7 @@ export function Box() {
       setIsLoading(false);
     }
     fetchData();
-  }, [id]);
+  }, [id, query, selectedType]);
 
   async function handleNext() {
     if ((data?.count ?? 0) / 10 < page) return;
@@ -55,7 +54,7 @@ export function Box() {
       {isLoading && <Loader />}
       {!isLoading && (
         <div>
-          <div className="box-buttons">
+          <div>
             {data?.previous && (
               <button
                 onClick={() => {
