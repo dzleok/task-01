@@ -10,7 +10,7 @@ export default function CardList({ data }: ResultsProps): JSX.Element {
   console.log(data);
   function showCardDetails(newCharacter: StarWarsCharacter) {
     if (newCharacter === character) {
-      setIsShowCardDetails(false);
+      setIsShowCardDetails(!isShowCardDetails);
       return;
     }
 
@@ -25,9 +25,10 @@ export default function CardList({ data }: ResultsProps): JSX.Element {
   return (
     <div className="card-list">
       <div className="card-items">
-        {data.detail === 'Not found' ||
-          (data.count === 0 && <h3>Not found</h3>)}
-        {data.results?.map((el, i) => (
+        {(data.detail === 'Not found' || data.count === 0) && (
+          <h2>Not Found</h2>
+        )}
+        {data.results.map((el, i) => (
           <Card key={i} character={el} showCardDetails={showCardDetails} />
         ))}
       </div>

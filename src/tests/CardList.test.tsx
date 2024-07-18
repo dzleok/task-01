@@ -2,7 +2,7 @@ const data: StarWarsRequest = {
   count: 3,
   next: null,
   previous: null,
-  detail: undefined,
+  detail: null,
   results: [
     {
       name: 'Owen Lars',
@@ -65,6 +65,7 @@ const data: StarWarsRequest = {
       MGLT: '',
       hyperdrive_rating: '',
       starship_class: '',
+      planetName: '',
     },
     {
       name: 'Beru Whitesun lars',
@@ -127,6 +128,7 @@ const data: StarWarsRequest = {
       MGLT: '',
       hyperdrive_rating: '',
       starship_class: '',
+      planetName: '',
     },
     {
       name: 'Cliegg Lars',
@@ -185,6 +187,7 @@ const data: StarWarsRequest = {
       MGLT: '',
       hyperdrive_rating: '',
       starship_class: '',
+      planetName: '',
     },
   ],
 };
@@ -215,7 +218,7 @@ describe('CardList', () => {
   it('should render Not found', () => {
     data.count = 0;
     render(<CardList data={data} setData={() => {}} selectedType={null} />);
-    const notFound = screen.getByText('Not found');
+    const notFound = screen.getByText(/not found/i);
     expect(notFound).toBeInTheDocument();
   });
 });

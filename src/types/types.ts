@@ -11,7 +11,7 @@ export type StarWarsRequest = {
   next: string | null;
   previous: string | null;
   results: StarWarsCharacter[];
-  detail: string | undefined;
+  detail: string | null;
 };
 
 export type StarWarsCharacter = {
@@ -31,6 +31,7 @@ export type StarWarsCharacter = {
   created: string;
   edited: string;
   url: string;
+  planetName: string;
   // planet
   climate: string;
   diameter: string;
