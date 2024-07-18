@@ -11,10 +11,11 @@ export type StarWarsRequest = {
   next: string | null;
   previous: string | null;
   results: StarWarsCharacter[];
+  detail: string | undefined;
 };
 
 export type StarWarsCharacter = {
-  name: string | null;
+  name: string;
   height: string;
   mass: string;
   hair_color: string;

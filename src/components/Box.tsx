@@ -55,7 +55,7 @@ export function Box(): JSX.Element {
       {isLoading && <Loader />}
       {!isLoading && (
         <div>
-          <div>
+          <div className="box-buttons">
             {data?.previous && (
               <button
                 onClick={() => {
