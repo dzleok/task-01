@@ -13,6 +13,7 @@ export function Card({
       role="card"
       onClick={() => showCardDetails(character)}
     >
+      <input type="checkbox"></input>
       {character.name}
     </div>
   );

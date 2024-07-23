@@ -28,6 +28,11 @@
   background-color: rgb(255, 109, 41);
 }
 
+.card > input {
+  position: absolute;
+  left: 15px;
+}
+
 .card-details {
   text-align: left;
   width: 400px;
