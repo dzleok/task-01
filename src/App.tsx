@@ -8,7 +8,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { ThrowError } from './components/throwError';
 import { ErrorPage } from './components/ErrorPage';
 import { Box } from './components/Box';
-import ButtonTheme from './components/ButtonTheme/ButtomTheme';
+import ButtonTheme from './components/ButtonTheme/ButtonTheme';
 
 export default function App(): JSX.Element {
   return (
@@ -18,7 +18,6 @@ export default function App(): JSX.Element {
         <ErrorBoundary fallback={<p>Something went wrong</p>}>
           <Search />
           <ThrowError />
-
           <Routes>
             <Route path="search/:id" element={<Box />} />
             <Route path="*" element={<ErrorPage />} />

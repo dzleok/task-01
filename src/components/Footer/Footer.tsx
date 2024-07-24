@@ -1,10 +1,24 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { unselectAll } from '../../features/selectedSlice';
+import { RootState } from '../../app/store';
 import './Footer.css';
 
 export default function Footer() {
+  const dispatch = useDispatch();
+
+  const selectSelectedCharacters = (state: RootState) =>
+    state.selected.selected;
+  const selectedCharacters = useSelector(selectSelectedCharacters);
+
   return (
-    <div className="footer">
-      X items are selected<button>Unselect all</button>
-      <button>Download</button>
-    </div>
+    <>
+      {selectedCharacters.length > 0 && (
+        <div className="footer">
+          {selectedCharacters.length} items are selected
+          <button onClick={() => dispatch(unselectAll())}>Unselect all</button>
+          <button>Download</button>
+        </div>
+      )}
+    </>
   );
 }

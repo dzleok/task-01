@@ -8,6 +8,7 @@ export default function CardList({ data }: ResultsProps): JSX.Element {
   const [isShowCardDetails, setIsShowCardDetails] = useState<boolean>(false);
   const [character, setCharacter] = useState<StarWarsCharacter>();
   console.log(data);
+
   function showCardDetails(newCharacter: StarWarsCharacter) {
     if (newCharacter === character) {
       setIsShowCardDetails(!isShowCardDetails);

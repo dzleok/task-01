@@ -9,6 +9,7 @@ export function CardDetails({
   onCloseDetails: () => void;
 }): JSX.Element {
   const [isLoadingDetails, setIsLoadindDetails] = useState<boolean>(false);
+  const [homeWorldFetched, sethomeWorldFetched] = useState<string>('');
 
   useEffect(
     function () {
@@ -18,7 +19,7 @@ export function CardDetails({
 
         const res = await fetch(character.homeworld);
         const data = await res.json();
-        character.planetName = data.name;
+        sethomeWorldFetched(data.name);
         setIsLoadindDetails(false);
       }
       getDetails();
@@ -43,7 +44,7 @@ export function CardDetails({
           <p>eye color: {character?.eye_color}</p>
           <p>birth year: {character?.birth_year} </p>
           <p>gender: {character?.gender}</p>
-          <p>homeworld: {character?.planetName}</p>
+          <p>homeworld: {homeWorldFetched}</p>
         </div>
       )}
     </div>
