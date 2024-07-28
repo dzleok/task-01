@@ -25,47 +25,6 @@ const data: StarWarsRequest = {
       created: '2014-12-10T15:52:14.024000Z',
       edited: '2014-12-20T21:17:50.317000Z',
       url: 'https://swapi.dev/api/people/6/',
-      climate: '',
-      diameter: '',
-      gravity: '',
-      orbital_period: '',
-      population: '',
-      residents: [],
-      rotation_period: '',
-      surface_water: '',
-      terrain: '',
-      characters: [],
-      director: '',
-      episode_id: 0,
-      opening_crawl: '',
-      planets: [],
-      producer: '',
-      release_date: '',
-      title: '',
-      average_height: '',
-      average_lifespan: '',
-      classification: '',
-      designation: '',
-      eye_colors: '',
-      hair_colors: '',
-      language: '',
-      people: [],
-      skin_colors: '',
-      cargo_capacity: '',
-      consumables: '',
-      cost_in_credits: '',
-      crew: '',
-      length: '',
-      manufacturer: '',
-      max_atmosphering_speed: '',
-      model: '',
-      passengers: '',
-      pilots: [],
-      vehicle_class: '',
-      MGLT: '',
-      hyperdrive_rating: '',
-      starship_class: '',
-      planetName: '',
     },
     {
       name: 'Beru Whitesun lars',
@@ -88,47 +47,6 @@ const data: StarWarsRequest = {
       created: '2014-12-10T15:53:41.121000Z',
       edited: '2014-12-20T21:17:50.319000Z',
       url: 'https://swapi.dev/api/people/7/',
-      climate: '',
-      diameter: '',
-      gravity: '',
-      orbital_period: '',
-      population: '',
-      residents: [],
-      rotation_period: '',
-      surface_water: '',
-      terrain: '',
-      characters: [],
-      director: '',
-      episode_id: 0,
-      opening_crawl: '',
-      planets: [],
-      producer: '',
-      release_date: '',
-      title: '',
-      average_height: '',
-      average_lifespan: '',
-      classification: '',
-      designation: '',
-      eye_colors: '',
-      hair_colors: '',
-      language: '',
-      people: [],
-      skin_colors: '',
-      cargo_capacity: '',
-      consumables: '',
-      cost_in_credits: '',
-      crew: '',
-      length: '',
-      manufacturer: '',
-      max_atmosphering_speed: '',
-      model: '',
-      passengers: '',
-      pilots: [],
-      vehicle_class: '',
-      MGLT: '',
-      hyperdrive_rating: '',
-      starship_class: '',
-      planetName: '',
     },
     {
       name: 'Cliegg Lars',
@@ -147,47 +65,6 @@ const data: StarWarsRequest = {
       created: '2014-12-20T15:59:03.958000Z',
       edited: '2014-12-20T21:17:50.451000Z',
       url: 'https://swapi.dev/api/people/62/',
-      climate: '',
-      diameter: '',
-      gravity: '',
-      orbital_period: '',
-      population: '',
-      residents: [],
-      rotation_period: '',
-      surface_water: '',
-      terrain: '',
-      characters: [],
-      director: '',
-      episode_id: 0,
-      opening_crawl: '',
-      planets: [],
-      producer: '',
-      release_date: '',
-      title: '',
-      average_height: '',
-      average_lifespan: '',
-      classification: '',
-      designation: '',
-      eye_colors: '',
-      hair_colors: '',
-      language: '',
-      people: [],
-      skin_colors: '',
-      cargo_capacity: '',
-      consumables: '',
-      cost_in_credits: '',
-      crew: '',
-      length: '',
-      manufacturer: '',
-      max_atmosphering_speed: '',
-      model: '',
-      passengers: '',
-      pilots: [],
-      vehicle_class: '',
-      MGLT: '',
-      hyperdrive_rating: '',
-      starship_class: '',
-      planetName: '',
     },
   ],
 };
@@ -198,9 +75,21 @@ import CardList from '../components/CardList/CardList';
 import { StarWarsRequest } from '../types/types';
 import '@testing-library/jest-dom/vitest';
 
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+const initialState = { selected: { selected: data.results } };
+const mockStore = configureStore();
+const store = mockStore(initialState);
+
 describe('CardList', () => {
   it('should render correct name', () => {
-    render(<CardList data={data} setData={() => {}} selectedType={null} />);
+    render(
+      <Provider store={store}>
+        <CardList data={data} setData={() => {}} selectedType={null} />
+      </Provider>,
+    );
+
     const response = screen.getByText(data.results[0].name);
     expect(response).toHaveTextContent(data.results[0].name);
   });
@@ -208,7 +97,11 @@ describe('CardList', () => {
 
 describe('CardList', () => {
   it('should render correct count', () => {
-    render(<CardList data={data} setData={() => {}} selectedType={null} />);
+    render(
+      <Provider store={store}>
+        <CardList data={data} setData={() => {}} selectedType={null} />
+      </Provider>,
+    );
     const cards = screen.getAllByRole('card');
     expect(cards).toHaveLength(data.count);
   });
@@ -217,7 +110,11 @@ describe('CardList', () => {
 describe('CardList', () => {
   it('should render Not found', () => {
     data.count = 0;
-    render(<CardList data={data} setData={() => {}} selectedType={null} />);
+    render(
+      <Provider store={store}>
+        <CardList data={data} setData={() => {}} selectedType={null} />
+      </Provider>,
+    );
     const notFound = screen.getByText(/not found/i);
     expect(notFound).toBeInTheDocument();
   });

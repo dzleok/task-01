@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { ResultsProps, StarWarsCharacter } from '../../types/types';
 import './CardList.css';
-import { CardDetails } from '../CardDetails/CardDetails';
+import CardDetails from '../CardDetails/CardDetails';
 import { Card } from '../Card/Card';
 
 export default function CardList({ data }: ResultsProps): JSX.Element {
   const [isShowCardDetails, setIsShowCardDetails] = useState<boolean>(false);
   const [character, setCharacter] = useState<StarWarsCharacter>();
-  console.log(data);
 
   function showCardDetails(newCharacter: StarWarsCharacter) {
     if (newCharacter === character) {

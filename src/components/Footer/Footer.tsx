@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="footer">
           {selectedCharacters.length} items are selected
           <button onClick={() => dispatch(unselectAll())}>Unselect all</button>
-          <button>Download</button>
+          <button onClick={() => alert('DOESNT WORK')}>Download</button>
         </div>
       )}
     </>

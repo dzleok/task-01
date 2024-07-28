@@ -7,6 +7,6 @@ export async function fetchSearchData(
   const res = await fetch(
     `https://swapi.dev/api/${selectedType}/?search=${query}&page=${page}`,
   );
-  console.log('fetched');
+
   return await res.json();
 }

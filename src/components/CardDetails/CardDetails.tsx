@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StarWarsCharacter } from '../../types/types';
 
-export function CardDetails({
+export default function CardDetails({
   character,
   onCloseDetails,
 }: {
