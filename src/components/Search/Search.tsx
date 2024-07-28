@@ -4,6 +4,7 @@ import { useQuery } from '../../hooks/useQuery';
 import { useNavigate } from 'react-router-dom';
 import { useSelectedType } from '../../hooks/useSelectedType';
 import { useEffect } from 'react';
+
 export default function Search(): JSX.Element {
   const { query, setQuery } = useQuery();
   const navigate = useNavigate();

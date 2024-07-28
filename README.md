@@ -1,8 +1,8 @@
 # RS-React2024Q3
 
-### [React Routing. Tests.](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/routing.md)
+### [Redux. Redux Toolkit, RTK Query. Context api.](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/redux.md)
 
-## How to start
+## How to:
 
 1. Clone the repo `git clone ******.git`
 
@@ -15,3 +15,5 @@
 5. Start the application `npm run dev`
 
 6. Start the application in browser by provided link in CLI
+
+7. Start the coverage test `npm run coverage`

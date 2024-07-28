@@ -69,7 +69,7 @@ const data: StarWarsRequest = {
   ],
 };
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { it, expect, describe } from 'vitest';
 import CardList from '../components/CardList/CardList';
 import { StarWarsRequest } from '../types/types';
@@ -117,5 +117,20 @@ describe('CardList', () => {
     );
     const notFound = screen.getByText(/not found/i);
     expect(notFound).toBeInTheDocument();
+  });
+});
+
+describe('CardList', () => {
+  it('should render CardDetails on Click', async () => {
+    render(
+      <Provider store={store}>
+        <CardList data={data} setData={() => {}} selectedType={null} />
+      </Provider>,
+    );
+    fireEvent.click(screen.getByText('Owen Lars'));
+
+    const nameElement = await waitFor(() => screen.getByText(/height/i));
+
+    expect(nameElement).toBeInTheDocument();
   });
 });
