@@ -23,7 +23,7 @@ export default [
     },
   },
   {
-    ignores: ['.prettierrc.js'],
+    ignores: ['.prettierrc.js', 'dist'],
   },
   {
     settings: {

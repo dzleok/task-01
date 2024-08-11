@@ -25,9 +25,9 @@ export default function CardList({ data }: ResultsProps): JSX.Element {
   return (
     <div className="card-list">
       <div className="card-items">
-        {(data.detail === 'Not found' || data.count === 0) && (
-          <h2>Not Found</h2>
-        )}
+        {(data.detail === 'Not found' ||
+          data.count === 0 ||
+          data === undefined) && <h2>Not Found</h2>}
         {data.results.map((el, i) => (
           <Card key={i} character={el} showCardDetails={showCardDetails} />
         ))}
